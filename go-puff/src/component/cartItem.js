@@ -46,10 +46,13 @@ export default function CartItem(props)  {
                         </div>
                         <div>
                             <label>Quantity: </label>
+                            <input type={'number'} value={quantity} min={0} onChange={(event) => changeQuantity(event)}/>
+                            <button onClick={(event) => props.updateQuantity(quantity, item)}>Update</button>
                         </div>
                     </div>
                     <div className={'productPrice'}>
                         {getPrice()}
+                        {getDiscountedPrice()}
                     </div>
                 </div>
 

@@ -72,6 +72,18 @@ export default function CartView(props)  {
     };
 
 
+    const updateQuantity = (quantity, item) => {
+        let clonedItems = _.cloneDeep(cartItems);
+
+        if (quantity <= 0 ) {
+            _.remove(clonedItems, {'product_id': item.product_id})
+        } else {
+            let index = _.findIndex(clonedItems, {'product_id': item.product_id});
+            item.quantity = quantity;
+            clonedItems[index] = item;
+        }
+        setCartItems(clonedItems)
+    };
 
 
 
@@ -81,7 +93,7 @@ export default function CartView(props)  {
                 <div className={'container'}>
                     <div>
                             {cartItems.map((item, index) => (
-                                <CartItem cartItem={item} />
+                                <CartItem cartItem={item} updateQuantity={updateQuantity}/>
                             ))}
                     </div>
                     <OrderSummary cartItems={cartItems} getItemNumberString={getItemNumberString}/>
