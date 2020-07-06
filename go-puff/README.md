@@ -1,4 +1,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How Would I Improve with more Time
+
+With more time I would like to make it better looking. Currently the styles are not at all good looking and could be improved.
+
+I would like to add stuff like a checkout button, improve the interaction for updating quantities on items. Something like a drop down is better looking instead of a normal input.
+
+Adding a search functionality would be nice to filter the cart.
+
+I would also like to added taxes, to actually display the real total, though this would request location information which would come off the go puff api.
+
+A small description or dimensions from the meta data when needed would be a big plus.
+
+Adding info, or links for more details about the promotion prices is also something that I would like to add.
+
 
 ## Before Running
 
