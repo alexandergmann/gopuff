@@ -95,7 +95,7 @@ export default function CartView(props)  {
 
     return (
         <React.Fragment>
-            <h2>Your Cart ( {getItemNumberString()} item) </h2>
+            <h2>Your Cart ( {getItemNumberString()}) </h2>
                 <div className={'container'}>
                     <div className={'cartItemsContainer'}>
                             {cartItems.map((item, index) => (
