@@ -89,3 +89,9 @@
   margin-top: 5px;
 
 }
+
+.removeIcon {
+  color: red;
+  font-size: 30px;
+  cursor: pointer;
+}

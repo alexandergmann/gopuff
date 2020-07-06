@@ -6,30 +6,21 @@ import '../App.css';
 
 
 export default function OrderSummary(props)  {
-    const [cartItems, setCartItems] = useState(props.cartItems);
     const [subTotal, setSubTotal] = useState(0);
     const [discountedSubTotal, setDiscountedSubTotal] = useState(0);
 
 
     useEffect( () => {
-        setCartItems(props.cartItems);
-        let subTotal = getSubtotal(props.cartItems)
+        let price = 0;
+        _.forEach(props.cartItems, (item) => {
+            price += (item.price * item.quantity)
+        });
+        let subTotal = _.ceil(price, 2).toFixed(2);
         setSubTotal(subTotal);
         setDiscountedSubTotal(getDiscountedSubtotal(props.cartItems,subTotal))
 
 
     }, [props.cartItems]);
-
-
-    const getSubtotal = () => {
-        let price = 0;
-        _.forEach(cartItems, (item) => {
-            price += (item.price * item.quantity)
-        });
-
-        return _.ceil(price, 2).toFixed(2);
-    };
-
 
     const getDiscountedSubtotal = (cartItems, subTotal) =>  {
         let discountedTotal = 0;
@@ -76,11 +67,11 @@ export default function OrderSummary(props)  {
                 {displayDiscountedSubTotal()}
                 <div className={'marginTop5'}>
                     <span className={'orderSummaryLabel'}>Estimated Tax</span>
-                    <span className={'orderSummaryPrice'}>${getSubtotal()}</span>
+                    <span className={'orderSummaryPrice'}>${subTotal}</span>
                 </div>
                 <div className={'orderSummaryTotal'}>
                     <span className={'orderSummaryLabel'}>Total</span>
-                    <span className={'orderSummaryPrice'}>${getSubtotal()}</span>
+                    <span className={'orderSummaryPrice'}>${subTotal}</span>
                 </div>
             </div>
 

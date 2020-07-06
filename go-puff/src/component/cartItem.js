@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import _ from 'lodash';
-import axios from '../axios-gopuff';
 import '../App.css';
-import logo from "../logo.svg";
-
-
+import {FaMinusCircle} from "react-icons/fa";
 
 
 export default function CartItem(props)  {
@@ -30,43 +27,10 @@ export default function CartItem(props)  {
         setQuantity(newQuantity);
     };
 
-
-    const displayItem = (item) => {
-        console.log(item);
-        console.log(_.has(item, 'product_info'));
-        if (_.has(item, 'product_info')) {
-            return (
-                <div className={'card'}>
-                    <div className={'productImage'}>
-                        {getImage(item)}
-                    </div>
-                    <div className={'productNameQuantity'}>
-                        <div className={'productName'}>
-                            {item.product_info.name}
-                        </div>
-                        <div>
-                            <label>Quantity: </label>
-                            <input type={'number'} value={quantity} min={0} onChange={(event) => changeQuantity(event)}/>
-                            <button onClick={(event) => props.updateQuantity(quantity, item)}>Update</button>
-                        </div>
-                    </div>
-                    <div className={'productPrice'}>
-                        {getPrice()}
-                        {getDiscountedPrice()}
-                    </div>
-                </div>
-
-            )
-        }
-
-        return null;
-    };
-
-
     const getImage = (item) => {
         if (item.product_info.images.length >= 1 ) {
             return (
-                <img src={item.product_info.images[0].thumb} className={'App-logo'}/>
+                <img src={item.product_info.images[0].thumb} className={'App-logo'} alt={'thumb'}/>
             )
         }
 
@@ -86,8 +50,7 @@ export default function CartItem(props)  {
 
     const getDiscountedPrice = () => {
         let normalPrice = cartItem.price;
-        let discountedPrice = cartItem.credit_coupon_price
-
+        let discountedPrice = cartItem.credit_coupon_price;
 
         // if discounted price is less, display it
         if (discountedPrice < normalPrice) {
@@ -99,26 +62,48 @@ export default function CartItem(props)  {
                     Promotion Price:  ${fullDiscountedPrice}
                 </div>
             )
-
-
         }
 
-
-
         // if the discounted price is the same, don't display;
-
         return null;
     };
 
 
+    const displayItem = () => {
+        if (_.has(cartItem, 'product_info')) {
+            return (
+                <div className={'card'}>
+                    <div>
+                        <FaMinusCircle className={'removeIcon'} onClick={() => props.removeItem(cartItem)}/>
+                    </div>
+                    <div className={'productImage'}>
+                        {getImage(cartItem)}
+                    </div>
+                    <div className={'productNameQuantity'}>
+                        <div className={'productName'}>
+                            {cartItem.product_info.name}
+                        </div>
+                        <div>
+                            <label>Quantity: </label>
+                            <input type={'number'} value={quantity} min={0} onChange={(event) => changeQuantity(event)}/>
+                            <button onClick={() => props.updateQuantity(quantity, cartItem)}>Update</button>
+                        </div>
+                    </div>
+                    <div className={'productPrice'}>
+                        {getPrice()}
+                        {getDiscountedPrice()}
+                    </div>
+                </div>
 
+            )
+        }
 
-
-
+        return null;
+    };
 
     return (
         <React.Fragment>
-            {displayItem(cartItem)}
+            {displayItem()}
         </React.Fragment>
     )
 

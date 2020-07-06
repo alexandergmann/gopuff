@@ -36,31 +36,27 @@ export default function CartView(props)  {
                 page: 1
             }
         }).then((response) => {
+            let products = response.data.products;
+                let newCartItems = _.clone(props.cartItems);
+
+                _.forEach(newCartItems, function (item) {
+
+                    let productInfo = _.find(products, {product_id: item.product_id});
+
+                    item.product_info = productInfo;
+
+                });
+
+                console.log(newCartItems);
+
+                setCartItems(newCartItems);
             console.log(response);
-            addProductDataToItems(response.data.products);
             },
             (error) => {
                 console.log('this is an error');
                 console.log(error);
             });
     }, [props.cartItems]);
-
-
-    const addProductDataToItems = (products) => {
-        let newCartItems = _.clone(cartItems);
-
-        _.forEach(newCartItems, function (item) {
-
-            let productInfo = _.find(products, {product_id: item.product_id});
-
-            item.product_info = productInfo;
-
-        });
-
-        console.log(newCartItems);
-
-        setCartItems(newCartItems);
-    };
 
 
     const getItemNumberString =  () => {
@@ -85,6 +81,14 @@ export default function CartView(props)  {
         setCartItems(clonedItems)
     };
 
+    const removeItem = (itemToRemove) => {
+        let clonedItems = _.cloneDeep(cartItems);
+
+        _.remove(clonedItems, {product_id: itemToRemove.product_id});
+
+        setCartItems(clonedItems);
+    };
+
 
 
     return (
@@ -93,7 +97,7 @@ export default function CartView(props)  {
                 <div className={'container'}>
                     <div>
                             {cartItems.map((item, index) => (
-                                <CartItem cartItem={item} updateQuantity={updateQuantity} key={index}/>
+                                <CartItem cartItem={item} updateQuantity={updateQuantity} key={index} removeItem={removeItem}/>
                             ))}
                     </div>
                     <OrderSummary cartItems={cartItems} getItemNumberString={getItemNumberString}/>
