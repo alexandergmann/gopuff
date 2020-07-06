@@ -11,8 +11,6 @@ export default function CartView(props)  {
     const [cartItems, setCartItems] = useState(props.cartItems);
     const [numberOfCartItems, setNumberOfCartItems] = useState();
 
-    console.log(cartItems);
-
     useEffect( () => {
         let productIds = []
         let numberOfItems = 0;
@@ -24,9 +22,6 @@ export default function CartView(props)  {
 
         setNumberOfCartItems(numberOfItems);
 
-
-
-        console.log(productIds);
         axios.get(`/products`, {
             params: {
                 location_id: '-1',
@@ -46,11 +41,7 @@ export default function CartView(props)  {
                     item.product_info = productInfo;
 
                 });
-
-                console.log(newCartItems);
-
                 setCartItems(newCartItems);
-            console.log(response);
             },
             (error) => {
                 console.log('this is an error');
