@@ -12,9 +12,14 @@ export default function CartView(props)  {
     const [numberOfCartItems, setNumberOfCartItems] = useState();
 
     useEffect( () => {
+        let items = props.cartItems;
+
+        if (localStorage.getItem('cartItems')) {
+            items = JSON.parse(localStorage.getItem('cartItems'));
+        }
         let productIds = []
         let numberOfItems = 0;
-        _.forEach(props.cartItems, function (item) {
+        _.forEach(items, function (item) {
             productIds.push(item.product_id);
             numberOfItems += item.quantity;
 
@@ -32,7 +37,7 @@ export default function CartView(props)  {
             }
         }).then((response) => {
             let products = response.data.products;
-                let newCartItems = _.clone(props.cartItems);
+                let newCartItems = _.clone(items);
 
                 _.forEach(newCartItems, function (item) {
 
@@ -48,6 +53,11 @@ export default function CartView(props)  {
                 console.log(error);
             });
     }, [props.cartItems]);
+
+
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+    }, [cartItems]);
 
 
     const getItemNumberString =  () => {
@@ -82,11 +92,12 @@ export default function CartView(props)  {
 
 
 
+
     return (
         <React.Fragment>
             <h2>Your Cart ( {getItemNumberString()} item) </h2>
                 <div className={'container'}>
-                    <div>
+                    <div className={'cartItemsContainer'}>
                             {cartItems.map((item, index) => (
                                 <CartItem cartItem={item} updateQuantity={updateQuantity} key={index} removeItem={removeItem}/>
                             ))}

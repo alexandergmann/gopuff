@@ -6,7 +6,6 @@ import './App.css';
 import CartView from './page/CartView'
 
 function App() {
-
   return (
     <div className="App">
       <header className="App-header">

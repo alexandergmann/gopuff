@@ -30,7 +30,7 @@ export default function CartItem(props)  {
     const getImage = (item) => {
         if (item.product_info.images.length >= 1 ) {
             return (
-                <img src={item.product_info.images[0].thumb} className={'App-logo'} alt={'thumb'}/>
+                <img src={item.product_info.images[0].thumb} className={'image'} alt={'thumb'}/>
             )
         }
 
