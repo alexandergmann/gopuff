@@ -67,6 +67,25 @@
 }
 
 
+.productPrice {
+  text-align: right;
+}
+
 .productNameQuantity {
   text-align: left;
+}
+
+.discountedPrice {
+  color: #EE204D;
+}
+
+.marginTop5 {
+  margin-top: 5px;
+}
+
+
+.discountedSubtotal {
+  color: #EE204D;
+  margin-top: 5px;
+
 }

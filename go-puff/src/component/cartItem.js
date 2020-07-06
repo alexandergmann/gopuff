@@ -78,7 +78,7 @@ export default function CartItem(props)  {
         let price = _.ceil((cartItem.price * cartItem.quantity), 2).toFixed(2);
         return (
             <div>
-                ${ price }
+                Price: ${ price }
             </div>
         );
     };
@@ -88,6 +88,26 @@ export default function CartItem(props)  {
         let normalPrice = cartItem.price;
         let discountedPrice = cartItem.credit_coupon_price
 
+
+        // if discounted price is less, display it
+        if (discountedPrice < normalPrice) {
+
+            let fullDiscountedPrice = cartItem.credit_coupon_price * quantity;
+
+            return (
+                <div className={'discountedPrice'}>
+                    Promotion Price:  ${fullDiscountedPrice}
+                </div>
+            )
+
+
+        }
+
+
+
+        // if the discounted price is the same, don't display;
+
+        return null;
     };
 
 

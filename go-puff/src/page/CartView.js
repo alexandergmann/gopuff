@@ -93,7 +93,7 @@ export default function CartView(props)  {
                 <div className={'container'}>
                     <div>
                             {cartItems.map((item, index) => (
-                                <CartItem cartItem={item} updateQuantity={updateQuantity}/>
+                                <CartItem cartItem={item} updateQuantity={updateQuantity} key={index}/>
                             ))}
                     </div>
                     <OrderSummary cartItems={cartItems} getItemNumberString={getItemNumberString}/>
